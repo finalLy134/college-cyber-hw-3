@@ -3,10 +3,10 @@ This is a repository for Cyber Security Course homework number 3.
 
 ## Explanation on the files
 - `exercise.ipynb`: The main exercise code Jupyter Python Notebook, open it in your favorite code editor.
-- `summary.pdf`: A document that shows the Python Notebook after compiling and running it once.
+- `docs/summary.pdf`: A document that shows the Python Notebook after compiling and running it once.
+- `docs/doc.pdf`: The homework document.
 - `exercise.db`: A lightweight SQLite database for the exercise.
 - `worm.py`: The "parent" worm script for question number 4 in the homework document.
-- `doc.pdf`: The homework document.
 
 ## How can you run the project?
 1. Clone the repository or download the source code
