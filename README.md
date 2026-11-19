@@ -3,23 +3,22 @@ This is a repository for Cyber Security Course homework number 3.
 
 ## Explanation on the files
 - `exercise.ipynb`: The main exercise code Jupyter Python Notebook, open it in your favorite code editor.
-- `docs/summary.pdf`: A document that shows the Python Notebook after compiling and running it once.
-- `docs/doc.pdf`: The homework document.
 - `exercise.db`: A lightweight SQLite database for the exercise.
-- `worm.py`: The "parent" worm script for question number 4 in the homework document.
+- `_wParent.py`: The "parent" worm script for question number 4 in the homework document.
+- `docs/doc.pdf`: The homework document.
 
 ## How can you run the project?
 1. Clone the repository or download the source code
 2. Navigate to the project folder and open it in VSCode (Recommended)
 3. If you want to run the code and see the Python Notebook open `exercise.ipynb`, choose a Python kernel and press **Run All**
-4. If you want to run `worm.py` simply run `python worm.py` in the project folder
+4. If you want to run `_wParent.py` simply run `python _wParent.py` in the project folder
 
 
 ## The Python Notebook
 Disclaimer: The code shown in this Python Notebook was fully written by me, Amitai Dvora. I used AI as a tool, not a crutch.
 
 
-```python
+```batch
 %pip install -r requirements.txt
 ```
 
@@ -34,16 +33,10 @@ import sqlite3
 with sqlite3.connect("exercise.db") as conn:
     cursor = conn.cursor()
     
-    # Add UNIQUE to 'name' so SQLite knows what counts as a duplicate
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY,
-            name TEXT UNIQUE,
-            password TEXT
-        )
-    """)
+    # Creation of tables and setting the name field as unique to prevent users duplicates later
+    cursor.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT UNIQUE, password TEXT)")
     
-    # INSERT OR IGNORE skips the insert if 'name' already exists
+    # Inserting the users while preventing duplicates with INSERT OR IGNORE
     cursor.execute("INSERT OR IGNORE INTO users (name, password) VALUES (?, ?)", ("Bob", "Bb1234"))
     cursor.execute("INSERT OR IGNORE INTO users (name, password) VALUES (?, ?)", ("Alice", "Ac6543"))
     
@@ -87,23 +80,24 @@ print(f"Valid Usage Output: {get_user('1')}")
 print(f"SQL Injection Output: {get_user('0 OR 1=1;--')}")
 ```
 
-    Valid Usage Output: (1, 'Bob', 'Bb1234')
-    SQL Injection Output: None
+    Valid Usage Output: [(1, 'Bob', 'Bb1234')]
+    SQL Injection Output: []
     
 
 #### 3. Trojan Horse function code
 
 
 ```python
-def custom_sum(a, b):
+# Intentionally overriding the regular Python's sum() to emphasize we're making a "Trojan Horse"
+def sum(a, b):
     if a + b < 10:
         return a + b
     return 10
 
 # Test runs
-print(custom_sum(1, 3))  # 4
-print(custom_sum(9, 3))  # 10
-print(custom_sum(10, 1)) # 10
+print(sum(1, 3))  # 4
+print(sum(9, 3))  # 10
+print(sum(10, 1)) # 10
 ```
 
     4
@@ -112,7 +106,7 @@ print(custom_sum(10, 1)) # 10
     
 
 #### 4. Worm files
-In order to run the worm script you need to run it specifically from the worm_script.py in the project folder.
+In order to run the worm script you need to run it specifically from the _wParent.py in the project folder.
 
 #### 5. Hashing Algorithm
 
